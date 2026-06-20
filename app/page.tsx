@@ -108,11 +108,22 @@ export default function SurveyPage() {
     const nd = [...dayData]; nd[di].importance[time] = v; setDayData(nd);
   };
 
+  // Build the importance map for a day, defaulting every RANKED time to 5
+  // if the player never touched its slider. Without this, an untouched slider
+  // (which still visually shows 5) would save nothing.
+  const importanceForDay = (di: number): { [k: string]: number } => {
+    const out: { [k: string]: number } = {};
+    dayData[di].rankings.forEach(r => {
+      out[r.time] = dayData[di].importance[r.time] ?? 5;
+    });
+    return out;
+  };
+
   const goToReview = () => {
     setReviewData(days.map((day, di) => ({
       day, picks: dayData[di].rankings,
       unavailable: times.filter((_, i) => dayData[di].unavailable[i]),
-      importance: dayData[di].importance,
+      importance: importanceForDay(di),
     })));
     goToStep(3);
   };
@@ -125,7 +136,7 @@ export default function SurveyPage() {
         days: days.map((day, di) => ({
           day, picks: dayData[di].rankings,
           unavailable: times.filter((_, i) => dayData[di].unavailable[i]),
-          importance: dayData[di].importance,
+          importance: importanceForDay(di),
         })),
       });
       goToStep(4);
