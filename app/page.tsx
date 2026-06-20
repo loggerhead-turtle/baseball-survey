@@ -243,7 +243,7 @@ export default function SurveyPage() {
                   ))}
                 </div>
 
-                {days.map((day, di) => (
+                {days.map((_day, di) => (
                   <div key={di} className={`daycontent ${currentDay === di ? 'active' : ''}`}>
                     <div className="shead">Available times</div>
                     <div className="grid">

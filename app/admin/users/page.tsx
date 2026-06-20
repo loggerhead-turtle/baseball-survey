@@ -6,7 +6,7 @@ import {
   onAuthStateChanged, signOut, User,
   createUserWithEmailAndPassword, sendPasswordResetEmail,
 } from 'firebase/auth';
-import { initializeApp, deleteApp, getApps } from 'firebase/app';
+import { initializeApp, deleteApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { collection, getDocs, doc, setDoc, deleteDoc } from 'firebase/firestore';
 import { isAdmin } from '@/lib/config';
